@@ -1,0 +1,517 @@
+/* ==========================================================================
+   Printable documents: A4 prescriptions & 80mm thermal receipts
+   (used both for on-screen previews and for real printing)
+   ========================================================================== */
+
+#print-root {
+  display: none;
+}
+
+/* ---------------- Paper previews (screen) ---------------- */
+.paper-preview {
+  background: repeating-linear-gradient(45deg, #eef2f3, #eef2f3 10px, #e9eef0 10px, #e9eef0 20px);
+  border-radius: 12px;
+  padding: 22px;
+  overflow: auto;
+  max-height: 70vh;
+  display: flex;
+  justify-content: center;
+}
+
+.paper-preview__sheet {
+  background: #fff;
+  box-shadow: 0 10px 30px -10px rgba(15, 42, 53, 0.35), 0 0 0 1px rgba(15, 42, 53, 0.06);
+}
+
+.paper-preview__sheet--a4 {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 12mm;
+  flex-shrink: 0;
+}
+
+.paper-preview__sheet--thermal {
+  width: 80mm;
+  padding: 4mm 4mm 6mm;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.paper-preview__sheet--thermal::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 8px;
+  background: linear-gradient(-45deg, transparent 6px, #fff 0) 0 0 / 12px 8px repeat-x,
+    linear-gradient(45deg, transparent 6px, #fff 0) 0 0 / 12px 8px repeat-x;
+}
+
+/* ---------------- A4 prescription ---------------- */
+.rx-doc {
+  --rx-ink: #0f2a35;
+  --rx-accent: #0b6e70;
+  --rx-gold: #b48a3a;
+  --rx-line: #d9e2e4;
+  font-family: var(--font);
+  color: var(--rx-ink);
+  font-size: 12.5px;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(297mm - 24mm);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.rx-doc--store {
+  --rx-accent: #8e6a24;
+}
+
+.rx-doc__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--rx-accent);
+}
+
+.rx-doc__brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.rx-doc__logo-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.rx-doc__clinic {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0b1f27;
+  line-height: 1.1;
+}
+
+.rx-doc__tagline {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rx-gold);
+  margin-top: 3px;
+}
+
+.rx-doc__doctor-line {
+  font-size: 11.5px;
+  color: #4b646d;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.rx-doc__contact {
+  text-align: right;
+  font-size: 10.5px;
+  color: #4b646d;
+  line-height: 1.55;
+}
+
+.rx-doc__band {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--rx-accent) 9%, white);
+  border: 1px solid color-mix(in srgb, var(--rx-accent) 25%, white);
+}
+
+.rx-doc__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--rx-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.rx-doc__title-sub {
+  font-size: 11px;
+  color: #4b646d;
+}
+
+.rx-doc__no {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.rx-doc__no span {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #627a83;
+}
+
+.rx-doc__no strong {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+.rx-doc__patient {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--rx-line);
+  border-radius: 8px;
+}
+
+.rx-doc__patient > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rx-doc__patient span {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #627a83;
+  font-weight: 600;
+}
+
+.rx-doc__patient strong {
+  font-size: 12.5px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.rx-doc__vitals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: #4b646d;
+}
+
+.rx-doc__vitals strong {
+  color: var(--rx-ink);
+}
+
+.rx-doc__clinical {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.rx-doc__label {
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--rx-accent);
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.rx-doc__meds {
+  position: relative;
+  margin-top: 16px;
+  flex: 1;
+}
+
+.rx-doc__rx-symbol {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--rx-accent);
+  margin-bottom: 6px;
+}
+
+.rx-doc__meds table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.rx-doc__meds th {
+  text-align: left;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4b646d;
+  padding: 7px 8px;
+  border-bottom: 1.5px solid var(--rx-ink);
+  background: #f6f9f9;
+}
+
+.rx-doc__meds td {
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--rx-line);
+  vertical-align: top;
+}
+
+.rx-doc__notes {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--rx-gold);
+  background: #fcf8ef;
+  border-radius: 0 6px 6px 0;
+}
+
+.rx-doc__notes p + p {
+  margin-top: 4px;
+}
+
+.rx-doc__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.rx-doc__followup {
+  font-size: 12.5px;
+  padding: 7px 10px;
+  border: 1px dashed var(--rx-accent);
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.rx-doc__timings {
+  font-size: 10.5px;
+  color: #627a83;
+}
+
+.rx-doc__sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 210px;
+  text-align: center;
+}
+
+.rx-doc__sign-line {
+  width: 100%;
+  height: 1px;
+  background: var(--rx-ink);
+  margin-bottom: 6px;
+}
+
+.rx-doc__sign span {
+  font-size: 10.5px;
+  color: #627a83;
+}
+
+.rx-doc__foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rx-line);
+  font-size: 9.5px;
+  color: #8a9ca3;
+}
+
+/* ---------------- 80mm thermal receipt ---------------- */
+.thermal {
+  width: 72mm;
+  margin: 0 auto;
+  color: #000;
+  background: #fff;
+  font-family: 'Courier New', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.35;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.thermal__center {
+  text-align: center;
+}
+
+.thermal__logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.thermal__logo-img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  margin: 0 auto 4px;
+  filter: grayscale(1) contrast(1.4);
+}
+
+.thermal__name {
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.thermal__tag {
+  font-family: var(--font);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.thermal__contact {
+  font-size: 10px;
+  margin-top: 5px;
+  line-height: 1.35;
+}
+
+.thermal__title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.thermal__rule {
+  border-top: 1px dashed #000;
+  margin: 6px 0;
+}
+
+.thermal__rule--double {
+  border-top: 3px double #000;
+}
+
+.tr-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  white-space: pre;
+}
+
+.tr-row > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tr-row > span:last-child {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.tr-row--strong {
+  font-weight: 700;
+}
+
+.tr-row--big {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.thermal__section {
+  font-weight: 700;
+  font-size: 10.5px;
+  margin: 6px 0 2px;
+  letter-spacing: 0.06em;
+}
+
+.thermal__item-name {
+  font-weight: 700;
+  white-space: normal;
+}
+
+.thermal__stamp {
+  text-align: center;
+  font-weight: 800;
+  margin: 8px 0 2px;
+  letter-spacing: 0.05em;
+}
+
+.thermal__thanks {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 11.5px;
+  margin: 4px 0;
+}
+
+.thermal__note {
+  font-size: 10px;
+}
+
+.thermal__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 9.5px;
+}
+
+.thermal__barcode {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5px;
+  height: 30px;
+  margin: 8px auto 4px;
+}
+
+.thermal__barcode span {
+  display: block;
+  background: #000;
+}
+
+.thermal__powered {
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+}
+
+/* ---------------- Real printing ---------------- */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  body > #root,
+  .toast-stack,
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  #print-root {
+    display: block !important;
+  }
+
+  .print-doc--a4 .rx-doc {
+    min-height: calc(297mm - 28mm);
+  }
+
+  body.print-thermal #print-root {
+    width: 80mm;
+  }
+
+  .print-doc--thermal {
+    width: 80mm;
+    padding: 3mm 4mm 6mm;
+  }
+
+  .rx-doc__meds tr {
+    break-inside: avoid;
+  }
+}

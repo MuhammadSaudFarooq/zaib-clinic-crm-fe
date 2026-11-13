@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-label="Zaib Clinic">
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="#0b6e70"/>
+  <rect x="27" y="12" width="10" height="31" rx="3.2" fill="#ffffff"/>
+  <rect x="16.5" y="22.5" width="31" height="10" rx="3.2" fill="#ffffff"/>
+  <path d="M15 40c5.5 12.5 28.5 12.5 34 0" fill="none" stroke="#e0b25b" stroke-width="4.6" stroke-linecap="round"/>
+  <text x="76" y="34" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="27" font-weight="800" fill="#0f2a35" letter-spacing="-0.5">Zaib <tspan font-weight="500" fill="#0b6e70">Clinic</tspan></text>
+  <text x="77" y="52" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="10.5" font-weight="600" fill="#8a7a55" letter-spacing="2.2">CARE · TRUST · HOSPITALITY</text>
+</svg>
